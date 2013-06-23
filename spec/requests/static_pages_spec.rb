@@ -28,4 +28,17 @@ describe "StaticPages" do
 		it {should have_content('Contact')}
 		it {should have_selector('title', :text => "#{base_title} | Contact")}
 	end
+
+	it "should have the right links on the layout" do
+		visit root_path
+		click_link "About"
+		page.should have_content('About Us')
+		click_link "Help"
+		page.should have_content('Help')
+		click_link "Contact"
+		page.should have_content('Contact')
+		click_link "Home"
+		click_link "Sign up now!"
+		page.should have_content('Sign up')
+	end
 end
