@@ -56,6 +56,17 @@ describe "AuthenticationPages" do
         end
       end
       describe "in the Users controller" do
+
+        describe "visiting the following page" do
+          before {visit following_user_path(user)}
+          it {should have_selector('title', text: 'Sign in')}
+        end
+
+        describe "visiting the followers page" do
+          before { visit followers_user_path(user) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
         describe "visiting the edit page" do
           before {visit edit_user_path(user)}
           it {should have_selector('title', text: 'Sign in')}
@@ -82,6 +93,18 @@ describe "AuthenticationPages" do
         describe "submitting to destroy action" do
           before { delete micropost_path(FactoryGirl.create(:micropost))}
           specify {response.should redirect_to(signin_path)}
+        end
+      end
+
+      describe "in the Relationships controller" do
+        describe "submitting to the create action" do
+          before {post relationships_path}
+          specify{response.should redirect_to(signin_path)}
+        end
+
+        describe "submitting to the destroy action" do
+          before {delete relationship_path(1)}
+          specify{response.should redirect_to(signin_path)}
         end
       end
     end
